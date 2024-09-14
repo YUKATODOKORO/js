@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ikigAIグラレコ生成</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+</head>
+<body>
+    <h1>ikigAIグラレコ生成</h1>
+    <p>以下のフォームの回答に基づいて画像を生成します。</p>
+    
+    <form id="generateForm">
+        <label for="identity">①「自分らしいこと」をできるだけ多くあげてください。(回答形式：単語)</label><br>
+        <input type="text" id="identity" name="identity"><br><br>
+
+        <label for="idealLife">②「3年後の理想の暮らし」やこういう社会にしたいという理想の想いを文章で具体的に記載ください。(回答形式：記述式)</label><br>
+        <textarea id="idealLife" name="idealLife"></textarea><br><br>
+
+        <input type="submit" value="生成">
+    </form>
+
+    <div id="imageResult">
+        <h2>あなたの理想の生成AI画像</h2>
+        <img id="generatedImage" alt="生成された画像" style="max-width: 100%;">
+    </div>
+
+    <script>
+        document.getElementById('generateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const identity = document.getElementById('identity').value;
+            const idealLife = document.getElementById('idealLife').value;
+
+            const prompt = `${identity}をアイデンティティとして持つ人が、${idealLife}という理想の暮らしを送っているグラレコっぽい縦型のアスペクト比の画像を作ってください。`;
+
+            try {
+                const response = await fetch('https://api.openai.com/v1/images/generations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer `// ←ここにAPIキーを貼り付けます
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        size: "1024x1792",
+                        n: 1
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error generating image');
+                }
+
+                const data = await response.json();
+                const imageUrl = data.data[0].url;
+
+                document.getElementById('generatedImage').src = imageUrl;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('画像の生成に失敗しました。');
+            }
+        });
+    </script>
+</body>
+</html>
