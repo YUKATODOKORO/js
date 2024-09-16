@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +11,20 @@
             padding: 0px 20px 0px 20px;
             height: 30px;
             line-height: 30px;
-            /* テキストを中央揃え */
             text-align: center;
-            /* 横方向の中央揃え */
         }
 
         /* ボタンが無効化されたときのスタイル（グレーアウト） */
         #generateButton:disabled {
             background-color: #cccccc;
-            /* グレー */
             color: #666666;
-            /* テキストの色も薄くする */
             cursor: not-allowed;
-            /* カーソルを押せない状態に */
         }
     </style>
+
+    <!-- GPT_TOKENを挿入するプレースホルダー -->
+    <!--GPT_TOKEN_PLACEHOLDER-->
+    
 </head>
 
 <body>
@@ -58,13 +56,14 @@
         document.getElementById('generateForm').addEventListener('submit', async function (e) {
             e.preventDefault(); // デフォルトのフォーム送信を防ぐ
 
-            // process.envが定義されている場合のみ実行
-            if (typeof process !== 'undefined' && process.env && process.env.MY_SECRET_KEY) {
-                console.log('API Key:', process.env.MY_SECRET_KEY);
+            console.log(GPT_TOKEN); // GPT_TOKENを参照
+
+            if (GPT_TOKEN) {
+                console.log('API Key:', GPT_TOKEN);
             } else {
-                console.log('process.envが使用できない環境です');
+                console.error('GPT_TOKEN is not defined');
             }
-            
+
             // ボタンを無効化し、ローディング画面を表示
             const generateButton = document.getElementById('generateButton');
             generateButton.disabled = true;  // 生成ボタンを無効化
@@ -85,7 +84,7 @@
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: "Bearer " // ここにAPIキーを貼り付け
+                        Authorization: `Bearer ${GPT_TOKEN}` // ここにGPT_TOKENを利用
                     },
                     body: JSON.stringify({
                         model: "dall-e-3",
@@ -117,5 +116,4 @@
         });
     </script>
 </body>
-
 </html>

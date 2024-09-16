@@ -1,0 +1,19 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "1.「IKIGAIグラレコ生成」\r 2.アプリの説明40字程度\r あなただけの理想の暮らしやなしたい社会を具現化できるグラレコ\r 3.工夫した点・こだわった点\r サービスローンチに関わることを課題提出している\r 4.難しかった点・次回トライしたいこと(又は機能)\r 5.ミニ講義で聞きたいこと\r ①GIT HUBや提出でAPIを守るためにはコードから削除したら良いか？そしたら動かなくなってしまうのはどう解消するのか？\r ②APIキーが動かないエラーがあり画像が生成できないのはどうやれば良いのか\r ③GOOGLEスプレットシートからの引用のAPIの不備\r 6.フリー項目（感想、シェアしたいこと等なんでも）\r 自分のやりたいことが形にできるのは楽しいと感じた\r サービスLPも作ったのでみて欲しい。https://ikigai96.studio.site/1-2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YUKATODOKORO/js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YUKATODOKORO/js/issues"
+  },
+  "homepage": "https://github.com/YUKATODOKORO/js#readme"
+}
