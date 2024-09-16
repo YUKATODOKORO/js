@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,22 +11,28 @@
         #generateButton {
             padding: 0px 20px 0px 20px;
             height: 30px;
-            line-height: 30px; /* テキストを中央揃え */
-            text-align: center; /* 横方向の中央揃え */
+            line-height: 30px;
+            /* テキストを中央揃え */
+            text-align: center;
+            /* 横方向の中央揃え */
         }
 
         /* ボタンが無効化されたときのスタイル（グレーアウト） */
         #generateButton:disabled {
-            background-color: #cccccc; /* グレー */
-            color: #666666; /* テキストの色も薄くする */
-            cursor: not-allowed; /* カーソルを押せない状態に */
+            background-color: #cccccc;
+            /* グレー */
+            color: #666666;
+            /* テキストの色も薄くする */
+            cursor: not-allowed;
+            /* カーソルを押せない状態に */
         }
     </style>
 </head>
+
 <body>
     <h1>ikigAIグラレコ生成</h1>
     <p>以下のフォームの回答に基づいて画像を生成します。</p>
-    
+
     <form id="generateForm">
         <label for="identity">①「自分らしいこと」をできるだけ多くあげてください。(回答形式：単語)</label><br>
         <input type="text" id="identity" name="identity"><br><br>
@@ -48,11 +55,16 @@
     </div>
 
     <script>
-        document.getElementById('generateForm').addEventListener('submit', async function(e) {
+        document.getElementById('generateForm').addEventListener('submit', async function (e) {
             e.preventDefault(); // デフォルトのフォーム送信を防ぐ
 
-            console.log('API Key:', process.env.MY_SECRET_KEY);
-
+            // process.envが定義されている場合のみ実行
+            if (typeof process !== 'undefined' && process.env && process.env.MY_SECRET_KEY) {
+                console.log('API Key:', process.env.MY_SECRET_KEY);
+            } else {
+                console.log('process.envが使用できない環境です');
+            }
+            
             // ボタンを無効化し、ローディング画面を表示
             const generateButton = document.getElementById('generateButton');
             generateButton.disabled = true;  // 生成ボタンを無効化
@@ -105,4 +117,5 @@
         });
     </script>
 </body>
+
 </html>
