@@ -51,6 +51,8 @@
         document.getElementById('generateForm').addEventListener('submit', async function(e) {
             e.preventDefault(); // デフォルトのフォーム送信を防ぐ
 
+            console.log('API Key:', process.env.MY_SECRET_KEY);
+
             // ボタンを無効化し、ローディング画面を表示
             const generateButton = document.getElementById('generateButton');
             generateButton.disabled = true;  // 生成ボタンを無効化
@@ -71,7 +73,7 @@
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: "Bearer YOUR_API_KEY" // ここにAPIキーを貼り付け
+                        Authorization: "Bearer " // ここにAPIキーを貼り付け
                     },
                     body: JSON.stringify({
                         model: "dall-e-3",
