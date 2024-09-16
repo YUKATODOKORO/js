@@ -52,39 +52,32 @@
         <img id="generatedImage" alt="生成された画像" style="max-width: 300px; max-height: 500px;">
     </div>
 
+    <script src="config.js"></script>
     <script>
         document.getElementById('generateForm').addEventListener('submit', async function (e) {
-            e.preventDefault(); // デフォルトのフォーム送信を防ぐ
-
-            console.log(GPT_TOKEN); // GPT_TOKENを参照
-
-            if (GPT_TOKEN) {
-                console.log('API Key:', GPT_TOKEN);
-            } else {
-                console.error('GPT_TOKEN is not defined');
-            }
-
+            e.preventDefault();
+    
             // ボタンを無効化し、ローディング画面を表示
             const generateButton = document.getElementById('generateButton');
-            generateButton.disabled = true;  // 生成ボタンを無効化
-            generateButton.value = "生成中..."; // ボタンのテキストを変更
+            generateButton.disabled = true;  
+            generateButton.value = "生成中...";
             document.getElementById('loading').style.display = 'block';
             document.getElementById('imageResult').style.display = 'none';
-
+    
             // フォームの値を取得
             const identity = document.getElementById('identity').value;
             const idealLife = document.getElementById('idealLife').value;
-
+    
             // プロンプトを生成
             const prompt = `${identity}をアイデンティティとして持つ人が、${idealLife}という理想の暮らしを送っているグラレコっぽい縦型のアスペクト比の画像を作ってください。`;
-
+    
             try {
                 // APIリクエストを送信
                 const response = await fetch('https://api.openai.com/v1/images/generations', {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${GPT_TOKEN}` // ここにGPT_TOKENを利用
+                        Authorization: `Bearer ${window.GPT_TOKEN}` // 環境変数から取得
                     },
                     body: JSON.stringify({
                         model: "dall-e-3",
@@ -93,27 +86,27 @@
                         n: 1
                     })
                 });
-
+    
                 if (!response.ok) {
                     throw new Error('Error generating image');
                 }
-
+    
                 const data = await response.json();
                 const imageUrl = data.data[0].url;
-
+    
                 // 画像を表示
                 document.getElementById('generatedImage').src = imageUrl;
-                document.getElementById('imageResult').style.display = 'block'; // 画像のセクションを表示
+                document.getElementById('imageResult').style.display = 'block'; 
             } catch (error) {
                 console.error('Error:', error);
                 alert('画像の生成に失敗しました。');
             } finally {
-                // ローディング画面を非表示にし、ボタンを有効化
                 document.getElementById('loading').style.display = 'none';
-                generateButton.disabled = false; // ボタンの無効化を解除
-                generateButton.value = "生成"; // ボタンのテキストを戻す
+                generateButton.disabled = false;
+                generateButton.value = "生成";
             }
         });
     </script>
+    
 </body>
 </html>
