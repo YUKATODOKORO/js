@@ -27,7 +27,7 @@
     <p>以下のフォームの回答に基づいて画像を生成します。</p>
     
     <form id="generateForm">
-        <label for="identity">①「自分らしいこと」をできるだけ多くあげてください。(回答形式：単語)</label><br>
+        <label for="identity">①「自分らしい」ことアイデンティティ、好きなことをできるだけ多くあげてください。(回答形式：単語)</label><br>
         <input type="text" id="identity" name="identity"><br><br>
 
         <label for="idealLife">②「3年後の理想の暮らし」やこういう社会にしたいという理想の想いを文章で具体的に記載ください。(回答形式：記述式)</label><br>
@@ -39,7 +39,7 @@
 
     <!-- ローディング画面 -->
     <div id="loading" style="display: none;">
-        <p>画像生成中...</p>
+        <p>画像生成中...（30秒〜1分ほど）</p>
     </div>
 
     <div id="imageResult" style="display: none;">
@@ -50,8 +50,6 @@
     <script>
         document.getElementById('generateForm').addEventListener('submit', async function(e) {
             e.preventDefault(); // デフォルトのフォーム送信を防ぐ
-
-            console.log('API Key:', process.env.MY_SECRET_KEY);
 
             // ボタンを無効化し、ローディング画面を表示
             const generateButton = document.getElementById('generateButton');
